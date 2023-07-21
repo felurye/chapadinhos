@@ -32,6 +32,8 @@ public class ChapadinhoService {
         if (optChapadinho.isEmpty())
             throw new BusinessException("This chapadinho is not registered.");
 
+        chapadinho.setId(id);
+
         return save(chapadinho);
     }
 
