@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class ChapadinhosApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(ChapadinhosApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(ChapadinhosApplication.class, args);
+    }
 
 }
