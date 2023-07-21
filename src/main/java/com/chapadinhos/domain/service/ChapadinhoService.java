@@ -20,15 +20,19 @@ public class ChapadinhoService {
     public Chapadinho save(Chapadinho chapadinho) {
         Optional<Chapadinho> optChapadinho = repository.findByName(chapadinho.getName());
 
-        /*
-         * Caso o nome informado estiver presente no banco é validado se foi informado um id
-         * e se é o mesmo do nome informado, pois nesse cenário um update dos valores deve
-         * ser realizado.
-         */
-        if (optChapadinho.isPresent() && !optChapadinho.get().getId().equals(chapadinho.getId()))
-            throw new BusinessException("This chapadinho is already registered.");
+        if (optChapadinho.isPresent())
+            throw new BusinessException("This chapadinho name is already registered.");
 
         return repository.save(chapadinho);
+    }
+
+    public Chapadinho update(Long id, Chapadinho chapadinho) {
+        Optional<Chapadinho> optChapadinho = repository.findById(id);
+
+        if (optChapadinho.isEmpty())
+            throw new BusinessException("This chapadinho is not registered.");
+
+        return save(chapadinho);
     }
 
     public List<Chapadinho> findAll() {

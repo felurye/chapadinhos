@@ -1,5 +1,8 @@
 package com.chapadinhos.api.controller;
 
+import com.chapadinhos.api.mapper.ChapadinhoMapper;
+import com.chapadinhos.api.request.ChapadinhoRequest;
+import com.chapadinhos.api.response.ChapadinhoResponse;
 import com.chapadinhos.domain.entity.Chapadinho;
 import com.chapadinhos.domain.service.ChapadinhoService;
 import lombok.RequiredArgsConstructor;
@@ -15,24 +18,25 @@ import java.util.Optional;
 @RequestMapping("/chapadinho")
 public class ChapadinhoController {
     private final ChapadinhoService service;
+    private final ChapadinhoMapper mapper;
 
     @PostMapping
-    public ResponseEntity<Chapadinho> save(@RequestBody Chapadinho chapadinho) {
-        Chapadinho chapadinhoResponse = service.save(chapadinho);
+    public ResponseEntity<ChapadinhoResponse> save(@RequestBody ChapadinhoRequest request) {
+        Chapadinho chapadinho = service.save(mapper.toChapadinho(request));
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(chapadinhoResponse);
+        return ResponseEntity.status(HttpStatus.CREATED).body(mapper.toChapadinhoResponse(chapadinho));
     }
 
     @GetMapping
-    public ResponseEntity<List<Chapadinho>> getAll() {
-        return ResponseEntity.status(HttpStatus.OK).body(service.findAll());
+    public ResponseEntity<List<ChapadinhoResponse>> getAll() {
+        return ResponseEntity.status(HttpStatus.OK).body(mapper.toChapadinhoResponseList(service.findAll()));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Chapadinho> getChapadinhoById(@PathVariable Long id) {
+    public ResponseEntity<ChapadinhoResponse> getChapadinhoById(@PathVariable Long id) {
         Optional<Chapadinho> chapadinho = service.findById(id);
 
-        return chapadinho.map(value -> ResponseEntity.status(HttpStatus.OK).body(value)).orElseGet(() -> ResponseEntity.notFound().build());
+        return chapadinho.map(value -> ResponseEntity.status(HttpStatus.OK).body(mapper.toChapadinhoResponse(value))).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
@@ -41,9 +45,9 @@ public class ChapadinhoController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-    @PutMapping
-    public ResponseEntity<Chapadinho> updateChapadinho(@RequestBody Chapadinho chapadinho) {
-        Chapadinho chapadinhoResponse = service.save(chapadinho);
-        return ResponseEntity.status(HttpStatus.OK).body(chapadinhoResponse);
+    @PutMapping("/{id}")
+    public ResponseEntity<ChapadinhoResponse> updateChapadinho(@PathVariable Long id, @RequestBody ChapadinhoRequest request) {
+        Chapadinho chapadinho = service.update(id, mapper.toChapadinho(request));
+        return ResponseEntity.status(HttpStatus.OK).body(mapper.toChapadinhoResponse(chapadinho));
     }
 }
