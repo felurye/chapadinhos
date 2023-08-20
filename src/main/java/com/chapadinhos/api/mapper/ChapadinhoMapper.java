@@ -20,12 +20,12 @@ public class ChapadinhoMapper {
         return mapper.map(request, Chapadinho.class);
     }
 
-    public ChapadinhoResponse toChapadinhoResponse(Chapadinho agenda) {
-        return mapper.map(agenda, ChapadinhoResponse.class);
+    public ChapadinhoResponse toChapadinhoResponse(Chapadinho chapadinho) {
+        return mapper.map(chapadinho, ChapadinhoResponse.class);
     }
 
-    public List<ChapadinhoResponse> toChapadinhoResponseList(List<Chapadinho> agendas) {
-        return agendas.stream()
+    public List<ChapadinhoResponse> toChapadinhoResponseList(List<Chapadinho> chapadinhos) {
+        return chapadinhos.stream()
                 .map(this::toChapadinhoResponse)
                 .collect(Collectors.toList());
     }

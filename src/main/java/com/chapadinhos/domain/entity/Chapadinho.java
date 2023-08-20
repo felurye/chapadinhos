@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
@@ -16,4 +17,7 @@ public class Chapadinho {
     private Long id;
 
     private String name;
+
+    @ManyToMany(mappedBy = "chapadinhos")
+    private List<Round> rounds;
 }

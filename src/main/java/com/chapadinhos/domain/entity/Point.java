@@ -19,6 +19,4 @@ public class Point {
     @Column(name = "point_date")
     private LocalDateTime pointDate;
 
-    @ManyToOne
-    private ChapadinhoRound chapadinhoRound;
 }

@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -16,6 +17,8 @@ public class Round {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String name;
+
     @Column(name = "start_date")
     private LocalDateTime startDate;
 
@@ -24,4 +27,10 @@ public class Round {
 
     @Column(name = "min_points_win")
     private Integer minPointsToWin;
+
+    @ManyToMany
+    @JoinTable(name = "chapadinhos_round",
+            joinColumns = @JoinColumn(name = "round_id"),
+            inverseJoinColumns = @JoinColumn(name = "chapadinho_id"))
+    private List<Chapadinho> chapadinhos;
 }

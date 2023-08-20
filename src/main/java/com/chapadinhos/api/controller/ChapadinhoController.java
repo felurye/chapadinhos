@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,8 +21,9 @@ public class ChapadinhoController {
     private final ChapadinhoService service;
     private final ChapadinhoMapper mapper;
 
+
     @PostMapping
-    public ResponseEntity<ChapadinhoResponse> save(@RequestBody ChapadinhoRequest request) {
+    public ResponseEntity<ChapadinhoResponse> save(@Valid @RequestBody ChapadinhoRequest request) {
         Chapadinho chapadinho = service.save(mapper.toChapadinho(request));
 
         return ResponseEntity.status(HttpStatus.CREATED).body(mapper.toChapadinhoResponse(chapadinho));
