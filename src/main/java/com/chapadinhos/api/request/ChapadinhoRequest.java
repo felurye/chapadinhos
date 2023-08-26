@@ -12,7 +12,6 @@ import javax.validation.constraints.NotBlank;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ChapadinhoRequest {
-    private Long id;
 
     @NotBlank(message = "The name of the chapadinho is required")
     private String name;

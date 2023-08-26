@@ -15,8 +15,6 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class PointRequest {
 
-    private Long id;
-
     @NotNull(message = "The pointDate is required")
     @DateTimeFormat(pattern = "yyyy-MM-ddTHH:mm:ss")
     private LocalDateTime pointDate;

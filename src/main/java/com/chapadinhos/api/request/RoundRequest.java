@@ -16,7 +16,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RoundRequest {
-    private Long id;
 
     @NotBlank(message = "The name of round is required")
     private String name;
